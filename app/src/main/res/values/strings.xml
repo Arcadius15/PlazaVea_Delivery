@@ -4,4 +4,10 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="shared_pref_key">pveadelivery</string>
+    <string name="login_titulo">Login</string>
+    <string name="ingresa_con_correoycontra">Ingresa con tu correo y contraseña</string>
+    <string name="hint_email">E-Mail</string>
+    <string name="hint_contrasenia">Contraseña</string>
+    <string name="mantener_sesion">Mantener sesión iniciada</string>
+    <string name="boton_iniciarseison">Iniciar Sesión</string>
 </resources>

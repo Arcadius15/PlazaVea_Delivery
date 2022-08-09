@@ -1,10 +1,9 @@
 package edu.pe.idat.plazaveadelivery.views
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.Observer
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import edu.pe.idat.plazaveadelivery.R
 import edu.pe.idat.plazaveadelivery.databinding.ActivityLoginBinding
@@ -25,12 +24,11 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.btnlogin.setOnClickListener(this)
-        authViewModel = ViewModelProvider(this)
-            .get(AuthViewModel::class.java)
-        authViewModel.responseLogin.observe(this, Observer {
+        binding.btnLogin.setOnClickListener(this)
+        authViewModel = ViewModelProvider(this)[AuthViewModel::class.java]
+        authViewModel.responseLogin.observe(this) {
             obtenerTokenLogin(it)
-        })
+        }
     }
 
     private fun obtenerTokenLogin(it: LoginRes?) {
@@ -40,36 +38,34 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener {
             finish()
         }else{
             Mensaje.enviarMensaje(binding.root,"Error",TipoMensaje.ERROR)
-            binding.btnlogin.isEnabled=true
+            binding.btnLogin.isEnabled=true
         }
-
-
     }
 
     override fun onClick(p0: View) {
         when(p0.id){
-            R.id.btnlogin-> autenticar()
+            R.id.btn_login-> autenticar()
         }
     }
 
     private fun autenticar() {
-        binding.btnlogin.isEnabled = false
+        binding.btnLogin.isEnabled = false
         var okLogin = true
-        if (binding.etusuario.text.toString().trim().isEmpty()){
-            binding.etusuario.isFocusableInTouchMode = true
-            binding.etusuario.requestFocus()
+        if (binding.edTextEmail.text.toString().trim().isEmpty()){
+            binding.edTextEmail.isFocusableInTouchMode = true
+            binding.edTextEmail.requestFocus()
             okLogin = false
-        }else if (binding.etpassword.text.toString().trim().isEmpty()) {
-            binding.etpassword.isFocusableInTouchMode = true
-            binding.etpassword.requestFocus()
+        }else if (binding.edTextPassword.text.toString().trim().isEmpty()) {
+            binding.edTextPassword.isFocusableInTouchMode = true
+            binding.edTextPassword.requestFocus()
             okLogin = false
         }
         if (okLogin){
             authViewModel.autenticarUsuario(
-                binding.etusuario.text.toString(),
-                binding.etpassword.text.toString())
+                binding.edTextEmail.text.toString(),
+                binding.edTextPassword.text.toString())
         }else{
-            binding.btnlogin.isEnabled = true
+            binding.btnLogin.isEnabled = true
             Mensaje.enviarMensaje(binding.root,"Ingrese su Usuario o Password",TipoMensaje.ERROR)
         }
     }
