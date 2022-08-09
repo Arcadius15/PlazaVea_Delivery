@@ -16,4 +16,15 @@
     <color name="snackbarerror">#EF0000</color>
     <color name="snackbarexito">#165497</color>
     <color name="snackbaradvertencia">#165497</color>
+
+    <color name="green_accent">#0CA355</color>
+    <color name="orange">#F88E1D</color>
+    <color name="gray">#e0e0e0</color>
+    <color name="gray_light">#F5F5F5</color>
+    <color name="granate_700">#9D1E23</color>
+    <color name="granate_300">#DA6166</color>
+    <color name="blue_700">#0B88FB</color>
+    <color name="blue_300">#DDEFFF</color>
+    <color name="gray_dark">#818181</color>
+    <color name="black_transparent">#60000000</color>
 </resources>
