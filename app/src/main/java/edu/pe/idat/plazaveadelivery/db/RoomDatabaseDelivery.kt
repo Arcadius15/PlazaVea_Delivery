@@ -9,7 +9,7 @@ import edu.pe.idat.plazaveadelivery.db.dao.UsuarioDAO
 import edu.pe.idat.plazaveadelivery.db.entity.TokenEntity
 import edu.pe.idat.plazaveadelivery.db.entity.UsuarioEntity
 
-@Database(entities = [UsuarioEntity::class, TokenEntity::class], version = 1)
+@Database(entities = [UsuarioEntity::class, TokenEntity::class], version = 2)
 abstract  class RoomDatabaseDelivery : RoomDatabase() {
 
     abstract fun usuarioDAO(): UsuarioDAO
@@ -29,7 +29,7 @@ abstract  class RoomDatabaseDelivery : RoomDatabase() {
                     context.applicationContext,
                     RoomDatabaseDelivery::class.java,
                     "deliverydb"
-                ).build()
+                ).fallbackToDestructiveMigration().build()
                 INSTANCE = instance
                 return instance
             }

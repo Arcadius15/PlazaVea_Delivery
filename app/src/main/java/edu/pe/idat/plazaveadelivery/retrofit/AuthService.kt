@@ -6,7 +6,7 @@ import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.POST
 
-interface PveaService {
+interface AuthService {
 
     @POST("jwt/authenticate")
     fun login(@Body request:LoginReq):Call<LoginRes>
