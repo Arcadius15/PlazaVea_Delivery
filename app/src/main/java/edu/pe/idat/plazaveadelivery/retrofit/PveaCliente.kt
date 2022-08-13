@@ -16,7 +16,7 @@ object PveaCliente {
     private fun buildRetrofit() = Retrofit.Builder().baseUrl(Constantes().API_PVEA_BASEURL).client(
         okHttpClient).addConverterFactory(GsonConverterFactory.create()).build()
 
-    val retrofitService:PveaService by lazy{
-        buildRetrofit().create(PveaService::class.java)
+    val retrofitService:AuthService by lazy{
+        buildRetrofit().create(AuthService::class.java)
     }
 }
