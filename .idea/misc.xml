@@ -17,10 +17,16 @@
         <entry key="..\:/Github/Repositorios/PlazaVea_Delivery/app/src/main/res/layout/activity_main.xml" value="0.34479166666666666" />
         <entry key="..\:/Github/Repositorios/PlazaVea_Delivery/app/src/main/res/layout/activity_splash.xml" value="0.34479166666666666" />
         <entry key="..\:/Github/Repositorios/PlazaVea_Delivery/app/src/main/res/menu/bottom_nav_menu.xml" value="0.16770833333333332" />
+        <entry key="..\:/_Projects/Android/PlazaVea_Delivery/app/src/main/res/drawable/ic__arrow_back.xml" value="0.2225" />
+        <entry key="..\:/_Projects/Android/PlazaVea_Delivery/app/src/main/res/layout/activity_main.xml" value="0.33605072463768115" />
+        <entry key="..\:/_Projects/Android/PlazaVea_Delivery/app/src/main/res/layout/activity_order_detail.xml" value="0.26047904191616766" />
+        <entry key="..\:/_Projects/Android/PlazaVea_Delivery/app/src/main/res/layout/fragment_dashboard.xml" value="0.33605072463768115" />
+        <entry key="..\:/_Projects/Android/PlazaVea_Delivery/app/src/main/res/layout/fragment_home.xml" value="0.33605072463768115" />
+        <entry key="..\:/_Projects/Android/PlazaVea_Delivery/app/src/main/res/layout/fragment_notifications.xml" value="0.33605072463768115" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
