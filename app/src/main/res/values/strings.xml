@@ -22,4 +22,6 @@
     <string name="id_orden_cv">ID de Orden:</string>
     <string name="fecha_realizada">Fecha de compra:</string>
     <string name="fecha_entrega">Entrega estimada:</string>
+    <string name="estado_pedido">Estado del pedido:</string>
+    <string name="nombre_cliente">Nombre del cliente</string>
 </resources>
