@@ -10,4 +10,13 @@
     <string name="hint_contrasenia">Contraseña</string>
     <string name="mantener_sesion">Mantener sesión iniciada</string>
     <string name="boton_iniciarseison">Iniciar Sesión</string>
+    <string name="detalle_orden">Detalle de orden</string>
+    <string name="texto_ejemplo">Texto ejemplo</string>
+    <string name="fecha_realizada_cv">Fecha de compra</string>
+    <string name="direccion_titulo">Dirección</string>
+    <string name="productos_titulo">Productos</string>
+    <string name="monto">Monto</string>
+    <string name="igv">IGV</string>
+    <string name="total">Total</string>
+    <string name="aceptar_pedido">Aceptar pedido</string>
 </resources>
