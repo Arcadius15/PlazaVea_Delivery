@@ -10,5 +10,6 @@ data class UsuarioJWTResponse(
     var numTelefonico: String,
     var placa: String,
     var status: String,
-    var turno: Int
+    var turno: Int,
+    var idTienda: String
 )

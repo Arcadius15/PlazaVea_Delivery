@@ -13,5 +13,6 @@ data class UsuarioEntity(
     var dni: String,
     var direccion: String,
     var numTelefonico: String,
-    var placa: String
+    var placa: String,
+    var idTienda: String
 )

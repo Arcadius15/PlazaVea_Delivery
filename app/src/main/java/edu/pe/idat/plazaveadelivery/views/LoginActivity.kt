@@ -64,7 +64,8 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener {
                 info.dni,
                 info.direccion,
                 info.numTelefonico,
-                info.placa
+                info.placa,
+                info.idTienda
             )
 
             if (SharedPrefCons(this).getSomeBooleanValue("mantener")) {

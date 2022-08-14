@@ -4,6 +4,7 @@ import edu.pe.idat.plazaveadelivery.utils.Constantes
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import java.util.concurrent.TimeUnit
 
 object PveaCliente {
@@ -18,5 +19,9 @@ object PveaCliente {
 
     val retrofitService:AuthService by lazy{
         buildRetrofit().create(AuthService::class.java)
+    }
+
+    val ordenService:OrdenService by lazy {
+        buildRetrofit().create(OrdenService::class.java)
     }
 }
