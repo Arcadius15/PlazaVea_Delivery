@@ -12,13 +12,4 @@ interface AuthService {
     @POST("jwt/authenticate")
     fun login(@Body request:LoginReq):Call<LoginRes>
 
-    @GET("producto/{idProducto}")
-    fun findById(
-        @Path("idProducto") idProducto: String
-    ): Call<ProductoReq>
-
-
-    @GET("orden/{idOrden}")
-    fun getOrden(@Path("idOrden") idOrden: String,
-                 @Header("Authorization") token: String): Call<OrdenRes>
 }

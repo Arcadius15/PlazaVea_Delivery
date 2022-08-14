@@ -28,4 +28,13 @@
     <string name="label_preciounidad">Precio x Unidad:</string>
     <string name="label_cantidad">Cantidad:</string>
     <string name="label_preciototal">Precio Total:</string>
+    <string name="title_pendientes">Órdenes Pendientes</string>
+    <string name="title_asignados">Asignados</string>
+    <string name="title_perfil">Perfil</string>
+    <string name="te_asignaste">Te Asignaste</string>
+    <string name="sin_asignar">Sin Asignar</string>
+    <string name="direccion_cv">Dirección:</string>
+    <string name="pagina">Página:</string>
+    <string name="entregado_el">Entregado el día:</string>
+    <string name="cancelado_el">Cancelado el día:</string>
 </resources>

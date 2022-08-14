@@ -3,23 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_pendientes">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="edu.pe.idat.plazaveadelivery.views.fragments.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/navigation_pendientes"
+        android:name="edu.pe.idat.plazaveadelivery.views.fragments.pendientes.PendientesFragment"
+        android:label="@string/title_pendientes"
+        tools:layout="@layout/fragment_pendientes" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="edu.pe.idat.plazaveadelivery.views.fragments.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_asignados"
+        android:name="edu.pe.idat.plazaveadelivery.views.fragments.asignados.AsignadosFragment"
+        android:label="@string/title_asignados"
+        tools:layout="@layout/fragment_asignados" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="edu.pe.idat.plazaveadelivery.views.fragments.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_perfil"
+        android:name="edu.pe.idat.plazaveadelivery.views.fragments.perfil.PerfilFragment"
+        android:label="@string/title_perfil"
+        tools:layout="@layout/fragment_perfil" />
 </navigation>
