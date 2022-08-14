@@ -24,4 +24,8 @@
     <string name="fecha_entrega">Entrega estimada:</string>
     <string name="estado_pedido">Estado del pedido:</string>
     <string name="nombre_cliente">Nombre del cliente</string>
+    <string name="label_producto">Producto:</string>
+    <string name="label_preciounidad">Precio x Unidad:</string>
+    <string name="label_cantidad">Cantidad:</string>
+    <string name="label_preciototal">Precio Total:</string>
 </resources>
