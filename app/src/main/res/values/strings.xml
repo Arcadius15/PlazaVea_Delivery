@@ -37,4 +37,6 @@
     <string name="pagina">Página:</string>
     <string name="entregado_el">Entregado el día:</string>
     <string name="cancelado_el">Cancelado el día:</string>
+    <string name="sin_asignados">Aún no te has asignado a ninguna orden</string>
+    <string name="sin_pendientes">No hay órdenes pendientes</string>
 </resources>

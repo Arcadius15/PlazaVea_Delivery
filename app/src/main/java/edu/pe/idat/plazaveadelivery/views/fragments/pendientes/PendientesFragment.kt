@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -46,6 +45,8 @@ class PendientesFragment : Fragment(), OrdenAdapter.IOrdenAdapter {
         usuarioRoomViewModel = ViewModelProvider(requireActivity())[UsuarioRoomViewModel::class.java]
         tokenViewModel = ViewModelProvider(requireActivity())[TokenViewModel::class.java]
 
+        binding.tvMensajeSinPendientes.visibility = View.GONE
+
         binding.rvOrdenesPendientes.setHasFixedSize(true)
         binding.rvOrdenesPendientes.layoutManager = LinearLayoutManager(requireActivity())
 
@@ -54,20 +55,26 @@ class PendientesFragment : Fragment(), OrdenAdapter.IOrdenAdapter {
         return binding.root
     }
 
-    private fun getOrdenes() {
-        ordenViewModel.getOrdenesByTienda(usuario.idTienda,1,
-                                        "Bearer ${token.token}").observe(viewLifecycleOwner){
-                                            procesarDatos(it)
+    private fun getTotalElements() {
+        ordenViewModel.getListTotalElements(usuario.idTienda, "Bearer ${token.token}").observe(viewLifecycleOwner){
+            if (it != null) {
+                getOrdenes(it.totalElements)
+            } else {
+                binding.progressbarPendientes.visibility = View.GONE
+                binding.tvMensajeSinPendientes.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    private fun getOrdenes(size: Int) {
+        ordenViewModel.getOrdenesByTienda(usuario.idTienda,size,
+            "Bearer ${token.token}").observe(viewLifecycleOwner){
+                procesarDatos(it)
         }
     }
 
     private fun procesarDatos(ordenPageRes: OrdenPageRes?) {
         if (ordenPageRes != null) {
-            val paginas = (1..ordenPageRes.totalPages).toList()
-            val adapterPaginas = ArrayAdapter(requireActivity(),androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
-                                              paginas)
-            binding.spPagina.adapter = adapterPaginas
-
             val ordenesFiltradas = ArrayList<OrdenRes>()
 
             ordenPageRes.content.forEach {
@@ -76,12 +83,20 @@ class PendientesFragment : Fragment(), OrdenAdapter.IOrdenAdapter {
                 }
             }
 
-            binding.rvOrdenesPendientes.adapter = OrdenAdapter(ArrayList(ordenesFiltradas.sortedWith(
-                compareBy{ or ->
-                    or.idOrden
-                })),this)
+            if (ordenesFiltradas.size > 0) {
+                binding.rvOrdenesPendientes.adapter = OrdenAdapter(ArrayList(ordenesFiltradas.sortedWith(
+                    compareBy{ or ->
+                        or.idOrden
+                    })),this)
+
+                binding.progressbarPendientes.visibility = View.GONE
+            } else {
+                binding.progressbarPendientes.visibility = View.GONE
+                binding.tvMensajeSinPendientes.visibility = View.VISIBLE
+            }
         } else {
-            //añadir progress bar
+            binding.progressbarPendientes.visibility = View.GONE
+            binding.tvMensajeSinPendientes.visibility = View.VISIBLE
         }
     }
 
@@ -98,7 +113,7 @@ class PendientesFragment : Fragment(), OrdenAdapter.IOrdenAdapter {
         tokenViewModel.obtener().observe(viewLifecycleOwner){
             te -> te?.let {
                 token = te
-                getOrdenes()
+                getTotalElements()
             }
         }
     }
