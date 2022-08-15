@@ -3,10 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Archivos/DAM2/PlazaVea_Delivery/app/src/main/res/drawable-v24/ic_flechasincuerpoderecha.xml" value="0.238" />
         <entry key="..\:/Archivos/DAM2/PlazaVea_Delivery/app/src/main/res/drawable/edittext_custom.xml" value="0.176" />
         <entry key="..\:/Archivos/DAM2/PlazaVea_Delivery/app/src/main/res/drawable/rounded_button.xml" value="0.176" />
         <entry key="..\:/Archivos/DAM2/PlazaVea_Delivery/app/src/main/res/layout/activity_login.xml" value="0.33" />
+        <entry key="..\:/Archivos/DAM2/PlazaVea_Delivery/app/src/main/res/layout/activity_main.xml" value="0.19519927536231885" />
+        <entry key="..\:/Archivos/DAM2/PlazaVea_Delivery/app/src/main/res/layout/activity_splash.xml" value="0.19519927536231885" />
         <entry key="..\:/Archivos/DAM2/PlazaVea_Delivery/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Archivos/DAM2/PlazaVea_Delivery/app/src/main/res/layout/activity_order_detail.xml" value="0.33" />
         <entry key="..\:/Archivos/DAM2/PlazaVea_Delivery/app/src/main/res/layout/activity_splash.xml" value="0.19519927536231885" />
@@ -34,6 +35,7 @@
         <entry key="..\:/_Projects/Android/PlazaVea_Delivery/app/src/main/res/layout/fragment_dashboard.xml" value="0.33605072463768115" />
         <entry key="..\:/_Projects/Android/PlazaVea_Delivery/app/src/main/res/layout/fragment_home.xml" value="0.33605072463768115" />
         <entry key="..\:/_Projects/Android/PlazaVea_Delivery/app/src/main/res/layout/fragment_notifications.xml" value="0.33605072463768115" />
+        <entry key="..\:/_Projects/Android/PlazaVea_Delivery/app/src/main/res/layout/fragment_perfil.xml" value="0.3489583333333333" />
       </map>
     </option>
   </component>
