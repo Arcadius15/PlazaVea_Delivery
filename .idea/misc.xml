@@ -17,6 +17,7 @@
         <entry key="..\:/Github/Repositorios/PlazaVea_Delivery/app/src/main/res/layout/activity_splash.xml" value="0.34479166666666666" />
         <entry key="..\:/Github/Repositorios/PlazaVea_Delivery/app/src/main/res/menu/bottom_nav_menu.xml" value="0.16770833333333332" />
         <entry key="..\:/_Projects/Android/PlazaVea_Delivery/app/src/main/res/drawable/ic__arrow_back.xml" value="0.2225" />
+        <entry key="..\:/_Projects/Android/PlazaVea_Delivery/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.2225" />
         <entry key="..\:/_Projects/Android/PlazaVea_Delivery/app/src/main/res/layout/activity_main.xml" value="0.33605072463768115" />
         <entry key="..\:/_Projects/Android/PlazaVea_Delivery/app/src/main/res/layout/activity_order_detail.xml" value="0.26047904191616766" />
         <entry key="..\:/_Projects/Android/PlazaVea_Delivery/app/src/main/res/layout/cardview_pedido.xml" value="0.3489583333333333" />
@@ -25,6 +26,7 @@
         <entry key="..\:/_Projects/Android/PlazaVea_Delivery/app/src/main/res/layout/fragment_home.xml" value="0.33605072463768115" />
         <entry key="..\:/_Projects/Android/PlazaVea_Delivery/app/src/main/res/layout/fragment_notifications.xml" value="0.33605072463768115" />
         <entry key="..\:/_Projects/Android/PlazaVea_Delivery/app/src/main/res/layout/fragment_perfil.xml" value="0.3489583333333333" />
+        <entry key="..\:/_Projects/Android/PlazaVea_Delivery/app/src/main/res/menu/bottom_nav_menu.xml" value="0.3489583333333333" />
       </map>
     </option>
   </component>
