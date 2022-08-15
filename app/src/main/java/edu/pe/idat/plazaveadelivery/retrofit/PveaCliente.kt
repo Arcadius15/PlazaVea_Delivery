@@ -24,4 +24,8 @@ object PveaCliente {
     val ordenService:OrdenService by lazy {
         buildRetrofit().create(OrdenService::class.java)
     }
+
+    val clienteService:ClienteService by lazy{
+        buildRetrofit().create(ClienteService::class.java)
+    }
 }
