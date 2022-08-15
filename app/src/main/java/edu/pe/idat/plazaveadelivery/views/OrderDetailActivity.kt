@@ -13,11 +13,11 @@ import edu.pe.idat.plazaveadelivery.R
 import edu.pe.idat.plazaveadelivery.databinding.ActivityOrderDetailBinding
 import edu.pe.idat.plazaveadelivery.db.entity.TokenEntity
 import edu.pe.idat.plazaveadelivery.db.entity.UsuarioEntity
-import edu.pe.idat.plazaveadelivery.retrofit.req.OrdenAsignarRequest
-import edu.pe.idat.plazaveadelivery.retrofit.req.RepartidorIDRequest
+import edu.pe.idat.plazaveadelivery.retrofit.req.OrdenPatchReq
 import edu.pe.idat.plazaveadelivery.retrofit.res.OrdenRes
 import edu.pe.idat.plazaveadelivery.retrofit.res.RepartidorOrdenRes
 import edu.pe.idat.plazaveadelivery.utils.ResponseHttp
+import edu.pe.idat.plazaveadelivery.viewmodel.ClienteViewModel
 import edu.pe.idat.plazaveadelivery.viewmodel.OrdenViewModel
 import edu.pe.idat.plazaveadelivery.viewmodel.TokenViewModel
 import edu.pe.idat.plazaveadelivery.viewmodel.UsuarioRoomViewModel
@@ -32,8 +32,11 @@ class OrderDetailActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var usuario: UsuarioEntity
     private lateinit var token: TokenEntity
     private lateinit var ordenViewModel: OrdenViewModel
+    private lateinit var clienteViewModel: ClienteViewModel
     private lateinit var usuarioRoomViewModel: UsuarioRoomViewModel
     private lateinit var tokenViewModel: TokenViewModel
+
+    private var mensaje = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,15 +46,19 @@ class OrderDetailActivity : AppCompatActivity(), View.OnClickListener {
         ordenResponse = intent.getSerializableExtra("orden") as OrdenRes
 
         ordenViewModel = ViewModelProvider(this)[OrdenViewModel::class.java]
+        clienteViewModel = ViewModelProvider(this)[ClienteViewModel::class.java]
         usuarioRoomViewModel = ViewModelProvider(this)[UsuarioRoomViewModel::class.java]
         tokenViewModel = ViewModelProvider(this)[TokenViewModel::class.java]
 
         binding.rvProductosOrden.setHasFixedSize(true)
         binding.rvProductosOrden.layoutManager = LinearLayoutManager(this)
 
+        binding.btnmarcarentregado.visibility = View.GONE
+
         cargarDatos()
 
         binding.btnaceptar.setOnClickListener(this)
+        binding.btnmarcarentregado.setOnClickListener(this)
         binding.btnGoBackOrden.setOnClickListener(this)
 
         ordenViewModel.responseHttp.observe(this) {
@@ -63,7 +70,7 @@ class OrderDetailActivity : AppCompatActivity(), View.OnClickListener {
         if (responseHttp.isSuccess) {
             Toast.makeText(
                 applicationContext,
-                "Te asignaste a esta orden",
+                mensaje,
                 Toast.LENGTH_LONG
             ).show()
             finish()
@@ -84,6 +91,7 @@ class OrderDetailActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun cargarDatos() {
         binding.tvNombreCliente.text = ordenResponse.cliente.idCliente
+        getTokenFromDB("c")
 
         val fc = Calendar.getInstance()
         val df1 = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
@@ -106,6 +114,8 @@ class OrderDetailActivity : AppCompatActivity(), View.OnClickListener {
                 binding.tvLabelEntregaFecha.text = getString(R.string.entregado_el)
                 fc.time = df1.parse(ordenResponse.fechaEntrega) as Date
                 binding.tvEntregaEstimada.text = df2.format(fc.time)
+                binding.btnaceptar.isEnabled = false
+                binding.btnmarcarentregado.isEnabled = false
             }
             "CANCELADO" -> {
                 binding.tvEstadoPedido.text = "Cancelado"
@@ -113,6 +123,8 @@ class OrderDetailActivity : AppCompatActivity(), View.OnClickListener {
                 binding.tvLabelEntregaFecha.text = getString(R.string.cancelado_el)
                 fc.time = df1.parse(ordenResponse.fechaEntrega) as Date
                 binding.tvEntregaEstimada.text = df2.format(fc.time)
+                binding.btnaceptar.isEnabled = false
+                binding.btnmarcarentregado.isEnabled = false
             }
         }
 
@@ -126,12 +138,15 @@ class OrderDetailActivity : AppCompatActivity(), View.OnClickListener {
 
         if (ordenResponse.repartidor != null) {
             binding.btnaceptar.isEnabled = false
+            binding.btnaceptar.visibility = View.GONE
+            binding.btnmarcarentregado.visibility = View.VISIBLE
         }
     }
 
     override fun onClick(p0: View) {
         when (p0.id) {
             R.id.btnaceptar -> getUserFromDB()
+            R.id.btnmarcarentregado -> getTokenFromDB("m")
             R.id.btnGoBackOrden -> {
                 setResult(Activity.RESULT_OK)
                 finish()
@@ -143,18 +158,65 @@ class OrderDetailActivity : AppCompatActivity(), View.OnClickListener {
         usuarioRoomViewModel.obtener().observe(this){
             ue -> ue?.let {
                 usuario = ue
-                getTokenFromDB()
+                getTokenFromDB("a")
             }
         }
     }
 
-    private fun getTokenFromDB(){
+    private fun getTokenFromDB(accion: String){
         tokenViewModel.obtener().observe(this){
             te -> te?.let {
                 token = te
-                aceptarOrden()
+                when (accion) {
+                    "a" -> aceptarOrden()
+                    "m" -> marcarEntregado()
+                    "c" -> cargarCliente()
+                }
             }
         }
+    }
+
+    private fun marcarEntregado() {
+        binding.btnmarcarentregado.isEnabled = false
+        binding.btnGoBackOrden.isEnabled = false
+
+        AlertDialog.Builder(this)
+            .setTitle("Entregar")
+            .setMessage("¿Seguro que desea marcar este delivery como entregado?")
+            .setPositiveButton("Sí") { dialogInterface, _ ->
+                val fechaActual = Calendar.getInstance()
+                val df = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+                df.timeZone = TimeZone.getTimeZone("America/Lima")
+
+                val ordenPatchReq = OrdenPatchReq(
+                    df.format(fechaActual.time),
+                    "ENTREGADO"
+                )
+
+                ordenResponse.status = "ENTREGADO"
+                ordenResponse.fechaEntrega = df.format(fechaActual.time)
+
+                ordenViewModel.actualizarOrden(ordenResponse.idOrden, ordenPatchReq,
+                    "Bearer ${token.token}")
+
+                mensaje = "Marcaste este pedido como Entregado"
+
+                dialogInterface.cancel()
+            }
+            .setNegativeButton("No"){ dialogInterface, _ ->
+                binding.btnmarcarentregado.isEnabled = true
+                binding.btnGoBackOrden.isEnabled = true
+                dialogInterface.cancel()
+            }
+            .show()
+    }
+
+    private fun cargarCliente() {
+        clienteViewModel.findById(ordenResponse.cliente.idCliente,
+                                  "Bearer ${token.token}")
+            .observe(this){
+                binding.tvNombreCliente.text = "${it.nombre} ${it.apellidos}"
+            }
     }
 
     private fun aceptarOrden() {
@@ -165,20 +227,14 @@ class OrderDetailActivity : AppCompatActivity(), View.OnClickListener {
             .setTitle("Asignarse")
             .setMessage("¿Seguro que desea asignarse a este delivery?")
             .setPositiveButton("Sí") { dialogInterface, _ ->
-                val repartidorIDRequest = RepartidorIDRequest(
-                    usuario.idRepartidor
-                )
-
-                val ordenAsignarRequest = OrdenAsignarRequest(
-                    repartidorIDRequest
-                )
-
                 ordenResponse.repartidor = RepartidorOrdenRes(
                     usuario.idRepartidor
                 )
 
-                ordenViewModel.asignarseOrden(ordenResponse.idOrden, ordenAsignarRequest,
+                ordenViewModel.asignarseOrden(ordenResponse.idOrden, usuario.idRepartidor,
                                         "Bearer ${token.token}")
+
+                mensaje = "Te asignaste a esta orden"
 
                 dialogInterface.cancel()
             }

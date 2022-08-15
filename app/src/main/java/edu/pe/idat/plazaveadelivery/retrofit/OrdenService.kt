@@ -1,6 +1,6 @@
 package edu.pe.idat.plazaveadelivery.retrofit
 
-import edu.pe.idat.plazaveadelivery.retrofit.req.OrdenAsignarRequest
+import edu.pe.idat.plazaveadelivery.retrofit.req.OrdenPatchReq
 import edu.pe.idat.plazaveadelivery.retrofit.res.OrdenPageRes
 import edu.pe.idat.plazaveadelivery.retrofit.res.OrdenRes
 import edu.pe.idat.plazaveadelivery.retrofit.res.OrdenTotalElementsRes
@@ -24,6 +24,11 @@ interface OrdenService {
 
     @PUT("orden/repartidor/{idOrden}")
     fun asignarseOrden(@Path("idOrden") idOrden: String,
-                        @Body ordenAsignarRequest: OrdenAsignarRequest,
+                       @Query("idRepartidor") idRepartidor: String,
+                       @Header("Authorization") token: String): Call<Void>
+
+    @PATCH("orden/{idOrden}")
+    fun actualizarOrden(@Path("idOrden") idOrden: String,
+                        @Body ordenPatchReq: OrdenPatchReq,
                         @Header("Authorization") token: String): Call<Void>
 }

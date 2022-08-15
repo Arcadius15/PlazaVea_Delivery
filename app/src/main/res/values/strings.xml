@@ -48,4 +48,5 @@
     <string name="logout">Cerrar sesión</string>
     <string name="sin_asignados">Aún no te has asignado a ninguna orden</string>
     <string name="sin_pendientes">No hay órdenes pendientes</string>
+    <string name="marcar_entregado">Marcar Como Entregado</string>
 </resources>

@@ -3,7 +3,7 @@ package edu.pe.idat.plazaveadelivery.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import edu.pe.idat.plazaveadelivery.repository.OrdenRepository
-import edu.pe.idat.plazaveadelivery.retrofit.req.OrdenAsignarRequest
+import edu.pe.idat.plazaveadelivery.retrofit.req.OrdenPatchReq
 import edu.pe.idat.plazaveadelivery.retrofit.res.OrdenPageRes
 import edu.pe.idat.plazaveadelivery.retrofit.res.OrdenRes
 import edu.pe.idat.plazaveadelivery.retrofit.res.OrdenTotalElementsRes
@@ -11,7 +11,7 @@ import edu.pe.idat.plazaveadelivery.utils.ResponseHttp
 
 class OrdenViewModel : ViewModel() {
 
-    var ordenId: LiveData<String>
+    private var ordenId: LiveData<String>
     var responseHttp: LiveData<ResponseHttp>
 
     private var repository = OrdenRepository()
@@ -33,7 +33,11 @@ class OrdenViewModel : ViewModel() {
         return repository.getListTotalElements(idTienda, token)
     }
 
-    fun asignarseOrden(idOrden: String, ordenAsignarRequest: OrdenAsignarRequest, token: String){
-        responseHttp = repository.asignarseOrden(idOrden, ordenAsignarRequest, token)
+    fun asignarseOrden(idOrden: String, idRepartidor: String, token: String){
+        responseHttp = repository.asignarseOrden(idOrden, idRepartidor, token)
+    }
+
+    fun actualizarOrden(idOrden: String, ordenPatchReq: OrdenPatchReq, token: String){
+        responseHttp = repository.actualizarOrden(idOrden, ordenPatchReq, token)
     }
 }

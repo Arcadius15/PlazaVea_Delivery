@@ -3,7 +3,7 @@ package edu.pe.idat.plazaveadelivery.repository
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import edu.pe.idat.plazaveadelivery.retrofit.PveaCliente
-import edu.pe.idat.plazaveadelivery.retrofit.req.OrdenAsignarRequest
+import edu.pe.idat.plazaveadelivery.retrofit.req.OrdenPatchReq
 import edu.pe.idat.plazaveadelivery.retrofit.res.OrdenPageRes
 import edu.pe.idat.plazaveadelivery.retrofit.res.OrdenRes
 import edu.pe.idat.plazaveadelivery.retrofit.res.OrdenTotalElementsRes
@@ -65,9 +65,39 @@ class OrdenRepository {
         return ordenTotalElementsRes
     }
 
-    fun asignarseOrden(idOrden: String, ordenAsignarRequest: OrdenAsignarRequest, token: String) : MutableLiveData<ResponseHttp> {
+    fun asignarseOrden(idOrden: String, idRepartidor: String, token: String) : MutableLiveData<ResponseHttp> {
         val call: Call<Void> = PveaCliente
-            .ordenService.asignarseOrden(idOrden,ordenAsignarRequest,token)
+            .ordenService.asignarseOrden(idOrden,idRepartidor,token)
+        call.enqueue(object : Callback<Void>{
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful){
+                    responseHttp.value = ResponseHttp(
+                        "Éxito",
+                        response.isSuccessful,
+                        "Correcto",
+                        "No"
+                    )
+                } else {
+                    responseHttp.value = ResponseHttp(
+                        "Error",
+                        response.isSuccessful,
+                        "Problema",
+                        "Sí"
+                    )
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("ERROR!", t.message.toString())
+            }
+        })
+
+        return responseHttp
+    }
+
+    fun actualizarOrden(idOrden: String, ordenPatchReq: OrdenPatchReq, token: String) : MutableLiveData<ResponseHttp> {
+        val call: Call<Void> = PveaCliente
+            .ordenService.actualizarOrden(idOrden,ordenPatchReq,token)
         call.enqueue(object : Callback<Void>{
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful){
