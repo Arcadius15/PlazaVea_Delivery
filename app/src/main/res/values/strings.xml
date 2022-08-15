@@ -37,4 +37,13 @@
     <string name="pagina">Página:</string>
     <string name="entregado_el">Entregado el día:</string>
     <string name="cancelado_el">Cancelado el día:</string>
+    <string name="mi_perfil">Mi perfil</string>
+    <string name="nombre_repartidor">Nombre:</string>
+    <string name="apellido_repartidor">Apellido:</string>
+    <string name="fn_repartidor">Fecha de nacimiento:</string>
+    <string name="dni">DNI:</string>
+    <string name="placa">Placa:</string>
+    <string name="turno">Turno:</string>
+    <string name="estado">Estado:</string>
+    <string name="logout">Cerrar sesión</string>
 </resources>
