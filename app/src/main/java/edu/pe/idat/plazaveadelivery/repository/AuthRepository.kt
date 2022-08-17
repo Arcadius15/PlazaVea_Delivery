@@ -4,7 +4,9 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import edu.pe.idat.plazaveadelivery.retrofit.PveaCliente
 import edu.pe.idat.plazaveadelivery.retrofit.req.LoginReq
+import edu.pe.idat.plazaveadelivery.retrofit.req.UsuarioPwsReq
 import edu.pe.idat.plazaveadelivery.retrofit.res.LoginRes
+import edu.pe.idat.plazaveadelivery.retrofit.res.MensajeRes
 import edu.pe.idat.plazaveadelivery.retrofit.res.TiendaRes
 import retrofit2.Call
 import retrofit2.Callback
@@ -13,6 +15,7 @@ import retrofit2.Response
 class AuthRepository {
     var loginRes = MutableLiveData<LoginRes?>()
     var tiendaRes = MutableLiveData<TiendaRes>()
+    var mensajeRes = MutableLiveData<MensajeRes>()
 
     fun autenticarUser(request:LoginReq):MutableLiveData<LoginRes?>{
         val call:Call<LoginRes> = PveaCliente.retrofitService.login(request)
@@ -46,5 +49,21 @@ class AuthRepository {
         })
 
         return tiendaRes
+    }
+
+    fun editPassword(usuarioPswReq: UsuarioPwsReq) : MutableLiveData<MensajeRes>{
+        val call: Call<MensajeRes> = PveaCliente
+            .retrofitService.editPassword(usuarioPswReq)
+        call.enqueue(object : Callback<MensajeRes>{
+            override fun onResponse(call: Call<MensajeRes>, response: Response<MensajeRes>) {
+                mensajeRes.value = response.body()
+            }
+
+            override fun onFailure(call: Call<MensajeRes>, t: Throwable) {
+                Log.e("ERROR!", t.message.toString())
+            }
+        })
+
+        return mensajeRes
     }
 }

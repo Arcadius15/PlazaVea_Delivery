@@ -12,6 +12,7 @@ import edu.pe.idat.plazaveadelivery.db.entity.UsuarioEntity
 import edu.pe.idat.plazaveadelivery.utils.SharedPrefCons
 import edu.pe.idat.plazaveadelivery.viewmodel.AuthViewModel
 import edu.pe.idat.plazaveadelivery.viewmodel.UsuarioRoomViewModel
+import edu.pe.idat.plazaveadelivery.views.CambiarContraActivity
 import edu.pe.idat.plazaveadelivery.views.LoginActivity
 
 class PerfilFragment : Fragment(){
@@ -39,6 +40,9 @@ class PerfilFragment : Fragment(){
         getUserFromDB()
 
         binding.btnlogout.setOnClickListener{logout()}
+        binding.btnircambiarcontra.setOnClickListener{startActivity(
+            Intent(requireActivity(),CambiarContraActivity::class.java)
+        )}
 
         return binding.root
     }

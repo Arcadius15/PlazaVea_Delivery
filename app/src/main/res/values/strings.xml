@@ -53,4 +53,10 @@
     <string name="title_activity_ubicacion">Geolocalizador</string>
     <string name="tienda">Tienda:</string>
     <string name="email">Email:</string>
+    <string name="cambiar_contrasena">Cambiar Contraseña</string>
+    <string name="ingresa_nueva_contra">Completa los siguientes campos</string>
+    <string name="hint_contraseniaact">Contraseña Actual</string>
+    <string name="hint_nuevacontrasenia">Nueva Contraseña</string>
+    <string name="hint_confirmarnuevacontra">Confirmar Nueva Contraseña</string>
+    <string name="cambiar">Cambiar</string>
 </resources>

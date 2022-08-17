@@ -48,45 +48,54 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener {
 
     private fun obtenerTokenLogin(it: LoginRes?) {
         if (it!=null){
-            val tokenEntity = TokenEntity(
-                it.token
-            )
+            try {
+                val tokenEntity = TokenEntity(
+                    it.token
+                )
 
-            val jwt = JWT(it.token)
-            val sub = jwt.getClaim("sub").asString()
-            val info = jwt.getClaim("info").asObject(UsuarioJWTResponse::class.java)
+                val jwt = JWT(it.token)
+                val sub = jwt.getClaim("sub").asString()
+                val info = jwt.getClaim("info").asObject(UsuarioJWTResponse::class.java)
 
-            val usuarioEntity = UsuarioEntity(
-                info!!.idRepartidor,
-                sub!!,
-                info.nombre,
-                info.apellidos,
-                info.dni,
-                info.direccion,
-                info.numTelefonico,
-                info.placa,
-                info.idTienda
-            )
+                val usuarioEntity = UsuarioEntity(
+                    info!!.idRepartidor,
+                    sub!!,
+                    info.nombre,
+                    info.apellidos,
+                    info.dni,
+                    info.direccion,
+                    info.numTelefonico,
+                    info.placa,
+                    info.idTienda
+                )
 
-            if (SharedPrefCons(this).getSomeBooleanValue("mantener")) {
-                tokenViewModel.actualizar(tokenEntity)
-                usuarioRoomViewModel.actualizar(usuarioEntity)
-            } else {
-                tokenViewModel.instertar(tokenEntity)
-                usuarioRoomViewModel.insertar(usuarioEntity)
-                if (binding.chkmantener.isChecked) {
-                    SharedPrefCons(this).setSomeBooleanValue("mantener",true)
+                if (SharedPrefCons(this).getSomeBooleanValue("mantener")) {
+                    tokenViewModel.actualizar(tokenEntity)
+                    usuarioRoomViewModel.actualizar(usuarioEntity)
+                } else {
+                    tokenViewModel.instertar(tokenEntity)
+                    usuarioRoomViewModel.insertar(usuarioEntity)
+                    if (binding.chkmantener.isChecked) {
+                        SharedPrefCons(this).setSomeBooleanValue("mantener",true)
+                    }
                 }
+
+                Toast.makeText(
+                    applicationContext,
+                    "Sesión Iniciada",
+                    Toast.LENGTH_LONG
+                ).show()
+
+                startActivity(Intent(applicationContext,MainActivity::class.java))
+                finish()
+            } catch (e: Exception) {
+                Toast.makeText(
+                    applicationContext,
+                    "ERROR! Las credenciales no pertenecen a un usuario repartidor",
+                    Toast.LENGTH_LONG
+                ).show()
+                e.printStackTrace()
             }
-
-            Toast.makeText(
-                applicationContext,
-                "Sesión Iniciada",
-                Toast.LENGTH_LONG
-            ).show()
-
-            startActivity(Intent(applicationContext,MainActivity::class.java))
-            finish()
         }else{
             Mensaje.enviarMensaje(binding.root,"ERROR! Las credenciales son incorrectas",TipoMensaje.ERROR)
         }
