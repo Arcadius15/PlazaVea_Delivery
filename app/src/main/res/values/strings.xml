@@ -49,4 +49,8 @@
     <string name="sin_asignados">Aún no te has asignado a ninguna orden</string>
     <string name="sin_pendientes">No hay órdenes pendientes</string>
     <string name="marcar_entregado">Marcar Como Entregado</string>
+    <string name="ver_mapa">Ver en el Mapa</string>
+    <string name="title_activity_ubicacion">Geolocalizador</string>
+    <string name="tienda">Tienda:</string>
+    <string name="email">Email:</string>
 </resources>

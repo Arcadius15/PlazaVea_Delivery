@@ -9,13 +9,11 @@ import edu.pe.idat.plazaveadelivery.utils.ResponseHttp
 class ClienteViewModel: ViewModel() {
 
     var clienteResponse: LiveData<ClienteRes>
-    var responseHttp: LiveData<ResponseHttp>
 
     private var repository = ClienteRepository()
 
     init{
         clienteResponse = repository.clienteResponse
-        responseHttp = repository.responseHttp
     }
 
     fun findById(idCliente:String, token: String): LiveData<ClienteRes>{

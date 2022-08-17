@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import edu.pe.idat.plazaveadelivery.repository.AuthRepository
 import edu.pe.idat.plazaveadelivery.retrofit.req.LoginReq
 import edu.pe.idat.plazaveadelivery.retrofit.res.LoginRes
+import edu.pe.idat.plazaveadelivery.retrofit.res.TiendaRes
 
 class AuthViewModel:ViewModel() {
     var responseLogin:LiveData<LoginRes?>
@@ -21,4 +22,7 @@ class AuthViewModel:ViewModel() {
         )
     }
 
+    fun getTiendaDelUsuario(idTienda: String): LiveData<TiendaRes> {
+        return repository.getTiendaDelUsuario(idTienda)
+    }
 }

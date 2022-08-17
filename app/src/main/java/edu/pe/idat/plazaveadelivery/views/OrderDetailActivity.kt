@@ -1,6 +1,7 @@
 package edu.pe.idat.plazaveadelivery.views
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -16,7 +17,9 @@ import edu.pe.idat.plazaveadelivery.db.entity.UsuarioEntity
 import edu.pe.idat.plazaveadelivery.retrofit.req.OrdenPatchReq
 import edu.pe.idat.plazaveadelivery.retrofit.res.OrdenRes
 import edu.pe.idat.plazaveadelivery.retrofit.res.RepartidorOrdenRes
+import edu.pe.idat.plazaveadelivery.utils.Mensaje
 import edu.pe.idat.plazaveadelivery.utils.ResponseHttp
+import edu.pe.idat.plazaveadelivery.utils.TipoMensaje
 import edu.pe.idat.plazaveadelivery.viewmodel.ClienteViewModel
 import edu.pe.idat.plazaveadelivery.viewmodel.OrdenViewModel
 import edu.pe.idat.plazaveadelivery.viewmodel.TokenViewModel
@@ -54,11 +57,13 @@ class OrderDetailActivity : AppCompatActivity(), View.OnClickListener {
         binding.rvProductosOrden.layoutManager = LinearLayoutManager(this)
 
         binding.btnmarcarentregado.visibility = View.GONE
+        binding.llorden.visibility = View.GONE
 
         cargarDatos()
 
         binding.btnaceptar.setOnClickListener(this)
         binding.btnmarcarentregado.setOnClickListener(this)
+        binding.btnvernmapa.setOnClickListener(this)
         binding.btnGoBackOrden.setOnClickListener(this)
 
         ordenViewModel.responseHttp.observe(this) {
@@ -140,6 +145,9 @@ class OrderDetailActivity : AppCompatActivity(), View.OnClickListener {
             binding.btnaceptar.isEnabled = false
             binding.btnaceptar.visibility = View.GONE
             binding.btnmarcarentregado.visibility = View.VISIBLE
+            binding.tvTituloOD.text = "Gestionar Entrega"
+        } else {
+            binding.btnvernmapa.visibility = View.GONE
         }
     }
 
@@ -147,6 +155,15 @@ class OrderDetailActivity : AppCompatActivity(), View.OnClickListener {
         when (p0.id) {
             R.id.btnaceptar -> getUserFromDB()
             R.id.btnmarcarentregado -> getTokenFromDB("m")
+            R.id.btnvernmapa -> if (ordenResponse.lat != null || ordenResponse.lng != null) {
+                startActivity(
+                    Intent(this, UbicacionActivity::class.java)
+                        .putExtra("lat", ordenResponse.lat.toString())
+                        .putExtra("lng", ordenResponse.lng.toString()),
+                )
+            } else {
+                Mensaje.enviarMensaje(binding.root,"Esta orden no incluye información de localización",TipoMensaje.ERROR)
+            }
             R.id.btnGoBackOrden -> {
                 setResult(Activity.RESULT_OK)
                 finish()
@@ -216,6 +233,8 @@ class OrderDetailActivity : AppCompatActivity(), View.OnClickListener {
                                   "Bearer ${token.token}")
             .observe(this){
                 binding.tvNombreCliente.text = "${it.nombre} ${it.apellidos}"
+                binding.llorden.visibility = View.VISIBLE
+                binding.progressbarDetOrden.visibility = View.GONE
             }
     }
 
