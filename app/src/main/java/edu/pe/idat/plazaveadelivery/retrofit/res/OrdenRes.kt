@@ -6,8 +6,8 @@ import java.io.Serializable
 
 data class OrdenRes (
     var direccion: String,
-    var lat: Double,
-    var lng: Double,
+    var lat: Double?,
+    var lng: Double?,
     var fecha: String,
     var fechaEntrega: String,
     var formaPago: String,

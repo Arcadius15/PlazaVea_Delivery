@@ -131,8 +131,7 @@ class AsignadosFragment : Fragment(), OrdenAdapter.IOrdenAdapter {
     }
 
     override fun goToDetail(ordenRes: OrdenRes) {
-        launcher.launch(
-            Intent(requireActivity(), OrderDetailActivity::class.java)
+        launcher.launch(Intent(requireActivity(), OrderDetailActivity::class.java)
                 .putExtra("orden",ordenRes))
     }
 

@@ -5,12 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import edu.pe.idat.plazaveadelivery.retrofit.PveaCliente
 import edu.pe.idat.plazaveadelivery.retrofit.req.LoginReq
 import edu.pe.idat.plazaveadelivery.retrofit.res.LoginRes
+import edu.pe.idat.plazaveadelivery.retrofit.res.TiendaRes
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class AuthRepository {
     var loginRes = MutableLiveData<LoginRes?>()
+    var tiendaRes = MutableLiveData<TiendaRes>()
 
     fun autenticarUser(request:LoginReq):MutableLiveData<LoginRes?>{
         val call:Call<LoginRes> = PveaCliente.retrofitService.login(request)
@@ -29,5 +31,20 @@ class AuthRepository {
             }
         })
         return loginRes
+    }
+
+    fun getTiendaDelUsuario(idTienda: String) : MutableLiveData<TiendaRes> {
+        val call: Call<TiendaRes> = PveaCliente.retrofitService.getTiendaDelUsuario(idTienda)
+        call.enqueue(object: Callback<TiendaRes>{
+            override fun onResponse(call: Call<TiendaRes>, response: Response<TiendaRes>) {
+                tiendaRes.value = response.body()
+            }
+
+            override fun onFailure(call: Call<TiendaRes>, t: Throwable) {
+                Log.e("Error en Login",t.message.toString())
+            }
+        })
+
+        return tiendaRes
     }
 }

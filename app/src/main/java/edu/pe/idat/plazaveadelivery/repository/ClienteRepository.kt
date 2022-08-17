@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import edu.pe.idat.plazaveadelivery.retrofit.PveaCliente
 import edu.pe.idat.plazaveadelivery.retrofit.res.ClienteRes
-import edu.pe.idat.plazaveadelivery.utils.ResponseHttp
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -12,7 +11,6 @@ import retrofit2.Response
 class ClienteRepository {
 
     var clienteResponse = MutableLiveData<ClienteRes>()
-    var responseHttp = MutableLiveData<ResponseHttp>()
 
     fun findById(idCliente: String, token: String) : MutableLiveData<ClienteRes>{
         val call: Call<ClienteRes> = PveaCliente.clienteService.findById(idCliente, token)
